@@ -233,7 +233,8 @@ async def get_gen_params(
     stream: Optional[bool],
     stop: Optional[Union[str, List[str]]],
 ) -> Dict[str, Any]:
-    conv = await get_conv(model_name)
+    conv_template = await get_conv(model_name)
+    conv = deepcopy(conv_template)
     conv = Conversation(
         name=conv["name"],
         system=conv["system"],
@@ -836,7 +837,7 @@ if __name__ == "__main__":
         description="FastChat ChatGPT-Compatible RESTful API server."
     )
     parser.add_argument("--host", type=str, default="localhost", help="host name")
-    parser.add_argument("--port", type=int, default=8000, help="port number")
+    parser.add_argument("--port", type=int, default=8083, help="port number")
     parser.add_argument(
         "--controller-address", type=str, default="http://localhost:21001"
     )
