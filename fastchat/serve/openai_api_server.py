@@ -13,6 +13,7 @@ import argparse
 import asyncio
 import json
 import logging
+import copy
 
 import os
 from typing import Generator, Optional, Union, Dict, List, Any
@@ -234,7 +235,7 @@ async def get_gen_params(
     stop: Optional[Union[str, List[str]]],
 ) -> Dict[str, Any]:
     conv_template = await get_conv(model_name)
-    conv = deepcopy(conv_template)
+    conv = copy.deepcopy(conv_template)
     conv = Conversation(
         name=conv["name"],
         system=conv["system"],
